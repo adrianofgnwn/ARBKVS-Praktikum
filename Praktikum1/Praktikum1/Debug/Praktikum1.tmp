@@ -1,0 +1,37 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>H:\Semester 5\ARBK\Praktikum1\Praktikum1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\Debug\Praktikum1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Praktikum1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Praktikum1.map</FILE>
+  <FILE>Praktikum1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <setup><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>15</LINE></setup>
+  <start><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>28</LINE></start>
+  <delay200ms><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>84</LINE></delay200ms>
+  <Dshiftleft><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>34</LINE></Dshiftleft>
+  <Bshiftleft><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>46</LINE></Bshiftleft>
+  <Bshiftright><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>59</LINE></Bshiftright>
+  <Dshiftright><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>72</LINE></Dshiftright>
+  <L1><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>88</LINE></L1>
+  <L2><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>90</LINE></L2>
+  <L3><FILE>H:\Semester 5\ARBK\Praktikum1\Praktikum1\main.asm</FILE><LINE>92</LINE></L3>
+ </LABELS>
+</ASSEMBLER_INFO>
