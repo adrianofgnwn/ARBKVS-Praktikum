@@ -7,7 +7,7 @@
  #include "tasks.h"
  
  //! Enter the current task number (2 - 4)
- #define TASK 2
+ #define TASK 3
 
 /*!
  * Selects task-function according to TASK define

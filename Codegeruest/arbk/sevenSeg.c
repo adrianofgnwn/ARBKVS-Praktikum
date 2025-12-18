@@ -69,7 +69,34 @@ void sevenSeg_set(uint8_t segment);
  */
 ISR(TIMER0_OVF_vect)
 {
+	static bool showOnes = false;     // toggles between ones and tens
+	uint8_t digitValue;
+	uint8_t segMask;
 
+	// toggle active display
+	showOnes = !showOnes;
+
+	if (showOnes) {
+		// Activate display for ones digit
+		cbi(SEVENSEG_PORT_SW, SEVENSEG_IDX_SW);   // one display
+		digitValue = sevenSegValue % 10;         // ones
+		segMask = digits[digitValue];
+		
+	} else {
+		// Activate display for tens digit
+		sbi(SEVENSEG_PORT_SW, SEVENSEG_IDX_SW);   // other display
+		digitValue = sevenSegValue / 10;         // tens
+		segMask = digits[digitValue];
+		
+		// Optional decimal point on the FIRST digit
+		if (sevenSegDot) {
+			// DP is highest bit; set to 0 to turn it on
+			segMask &= ~(1 << 7);
+		}
+	}
+
+	// Output bitmask to the segment pins
+	sevenSeg_set(segMask);
 }
 
 /*!
@@ -98,6 +125,28 @@ void sevenSeg_init()
 	}
 	
 	// Init Timer 0
+	
+	// Timer/Counter0 Control Register A - configures Waveform mode, output compare, etc.
+	TCCR0A = 0x00; // Select normal mode, no PWM, no CTC
+	
+	// Timer/Counter0 Control Register B - controls prescaler & more mode bits
+	// Reset the prescaler settings before choosing a new prescaler
+	TCCR0B = 0x00;
+	
+	// Timer/Counter0 - actual 8-bit timer counting register
+	// Initializes the actual 8-bit counter to 0
+	TCNT0  = 0x00; // Count from 0
+
+	// Prescaler 256 -> CS02 = 1, CS01 = 0, CS00 = 0
+	// Timer0 runs at 16MHz / 256 = 62,500 Hz
+	// Timer0 counts 256 steps (0 - 255), so overflow happens at 62,500 / 256 = 244 Hz 
+	sbi(TCCR0B, CS02); // TCCR0B |= (1 << CS02);
+
+	// Enable overflow interrupt
+	// Timer/Counter Interrupt Mask Register 0 - enables interrupts for Timer0
+	// Whenever Timer0 overflows (255 -> 0), the AVR will call: ISR(TIMER0_OVF_vect)
+	sbi(TIMSK0, TOIE0); // TIMSK0 |= (1 << TOIE0); 
+	
 	
 	// Enable global interrupts
 	sei();

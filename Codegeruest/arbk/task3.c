@@ -56,16 +56,57 @@ void task3_init()
  */
 gameover_t task3_game()
 {
-	// Current state of the LED bar
+	// Hilfsvariablen
+	uint16_t ledBar = 0b0000000001; // First LED
+	direction_t direction = DIR_LEFT; // Initial shift direction
+	uint16_t delay = DELAY_INITIAL_MS; // Initial shift delay
+	uint16_t ledMask = LED_BAR_INNER | LED_BAR_OUTER; // Bits used for LED bar
+	level = 0;
 	
-	// LED shift direction
-	
-	// Shift delay of game level 0 in ms
+	// Wait until SW1 is pressed and released
+	while (!button_waitForPressRelease(5000)) {}
 	
 	// Reset game level
+	sevenSeg_displayDecimal(level);
 	
 	while (1)
 	{
+		// Current state of the LED bar
+		ledBar_set(ledBar);
+	
+		// SW1 is pressed
+		if (button_waitForPressRelease(delay)) {
+			
+			// Invalid: Pressed too early
+			if(ledBar & LED_BAR_INNER) {
+				return GAME_OVER_TOO_EARLY;
+			}
+			
+			// Valid press
+			if ((ledBar & 0b0000000011) && direction == DIR_RIGHT) {
+				direction ^= 1; // Toggle direction
+				level++; // Update level
+				sevenSeg_displayDecimal(level); // Update sevenSeg
+				delay *= DELAY_DECREMENT_FACTOR; // Increase speed
+					
+			} else if ((ledBar & 0b1100000000) && direction == DIR_LEFT) {
+				direction ^= 1; // Toggle direction
+				level++; // Update level
+				sevenSeg_displayDecimal(level); // Update sevenSeg
+				delay *= DELAY_DECREMENT_FACTOR; // Increase speed
+			}
+		}
 		
-	}	
+		// LED Shift
+		if (direction == DIR_LEFT) {
+			ledBar <<= 1;
+		} else {
+			ledBar >>= 1;
+		}
+		
+		// Invalid: Not pressed / too Late
+		if ((ledBar & ledMask) == 0) {
+			return GAME_OVER_OUT_OF_BOUNDS;
+		}
+	}
 }
